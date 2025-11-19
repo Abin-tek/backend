@@ -1,27 +1,24 @@
 package org.tasktracker;
 
-public class UpdateCommand implements Command {
+public class DeleteCommand implements Command {
     private final TaskService service;
 
-    public UpdateCommand(TaskService service) {
+    public DeleteCommand(TaskService service) {
         this.service = service;
     }
 
-
     @Override
     public void execute(String[] args) {
-        if (args.length != 2) {
-            System.out.println("Id and description are required.");
+        if (args.length != 1) {
+            System.out.println("Task id is required.");
             Helper.showCommandFormat();
             return;
         }
 
         String id = args[0];
-        String description = args[1];
-
-        Task task = service.updateTask(id, description);
+        Task task = service.deleteTask(id);
         Response.send(
-                "Task updated successfully\n" +
+                "Task deleted successfully\n" +
                         "Id: " + task.getId() + "\n" +
                         "Description: " + task.getDescription()
         );

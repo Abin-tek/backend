@@ -14,6 +14,7 @@ public class CommandFactory {
         return switch (name) {
             case "add" -> new AddCommand(service);
             case "update" -> new UpdateCommand(service);
+            case "delete" -> new DeleteCommand(service);
 //            add others...
             default -> throw new CommandNotExistException();
         };

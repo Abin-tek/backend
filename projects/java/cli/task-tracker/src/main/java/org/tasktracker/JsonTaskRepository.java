@@ -39,13 +39,11 @@ public class JsonTaskRepository implements TaskRepository {
     }
 
     @Override
-    public boolean deleteById(String id) {
+    public void deleteById(String id) {
         List<Task> tasks = load();
 
         boolean removed = tasks.removeIf(t -> t.getId().equals(id));
         write(tasks);
-
-        return removed;
     }
 
     private List<Task> load() {

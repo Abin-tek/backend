@@ -26,8 +26,10 @@ public class TaskService {
         return task;
     }
 
-    public boolean deleteTask(String id) {
-        return repository.deleteById(id);
+    public Task deleteTask(String id) {
+        Task task = getTask(id);
+        repository.deleteById(id);
+        return task;
     }
 
     public void markInProgress(String id) {

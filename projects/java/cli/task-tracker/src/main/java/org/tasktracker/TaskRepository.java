@@ -10,5 +10,5 @@ public interface TaskRepository {
 
     public void save(Task task);
 
-    public boolean deleteById(String id);
+    public void deleteById(String id);
 }
