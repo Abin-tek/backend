@@ -1,6 +1,6 @@
 package org.tasktracker;
 
-public enum Status {
+public enum TaskStatus {
     TODO,
     IN_PROGRESS,
     DONE

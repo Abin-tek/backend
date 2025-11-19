@@ -1,20 +1,31 @@
 package org.tasktracker;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.InputMismatchException;
 
 public class Main {
     public static void main(String[] args) {
-        try {
-            Commander commander = new Commander();
-            commander.invokeOperation(args);
-        } catch (InputMismatchException e) {
-            System.out.println(e.getMessage());
-            showSugestion();
-        } catch (TaskNotFoundException e) {
-            System.out.println(e.getMessage());
+        if (args.length == 0) {
+            Response.send("No command provided");
+            Helper.showCommandFormat();
+            return;
         }
-    }
 
-    private static void showSugestion() {
+        String commandName = args[0];
+        String[] options = Arrays.copyOfRange(args, 1, args.length);
+
+        TaskRepository repository = new JsonTaskRepository("tasks.json");
+        TaskService service = new TaskService(repository);
+        CommandFactory factory = new CommandFactory(service);
+
+        try {
+            Command command = factory.getCommand(commandName);
+            command.execute(options);
+        } catch (CommandNotExistException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

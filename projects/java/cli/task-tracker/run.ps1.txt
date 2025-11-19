@@ -1,0 +1,6 @@
+param(
+    [string]$action,
+    [string]$task
+)
+
+mvn exec:java "-Dexec.args=$action `"$task`""

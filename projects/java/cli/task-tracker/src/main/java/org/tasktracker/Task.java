@@ -3,22 +3,26 @@ package org.tasktracker;
 import java.time.LocalDateTime;
 
 public class Task {
-     static int id_generator = 0;
-    private final int id;
+    private final String id;
     private String description;
-    private Status status;
-    private final LocalDateTime created_at;
-    private LocalDateTime updated_at;
+    private TaskStatus status;
+    private final String created_at;
+    private String updated_at;
 
-    public Task(String description) {
-        this.id = ++id_generator;
+    public Task() {
+        this.id = "";
+        this.created_at = "";
+    }
+
+    public Task(String id, String description) {
+        this.id = id;
         this.description = description;
-        this.status = Status.TODO;
-        this.created_at = LocalDateTime.now();
+        this.status = TaskStatus.TODO;
+        this.created_at = LocalDateTime.now().toString();
         this.updated_at = created_at;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -26,27 +30,36 @@ public class Task {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Status getStatus() {
+    public TaskStatus getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
-    public LocalDateTime getCreated_at() {
+    public String getCreated_at() {
         return created_at;
     }
 
-    public LocalDateTime getUpdated_at() {
+    public String getUpdated_at() {
         return updated_at;
     }
 
-    public void setUpdated_at() {
-        this.updated_at = LocalDateTime.now();
+
+    public void markInProgress() {
+        this.status = TaskStatus.IN_PROGRESS;
+        update();
+        Response.send("Task already done");
+    }
+
+    public void markDone() {
+        this.status = TaskStatus.DONE;
+        update();
+    }
+
+    public void updateDescription(String description) {
+        this.description = description;
+        update();
+    }
+
+    private void update() {
+        this.updated_at = LocalDateTime.now().toString();
     }
 }
