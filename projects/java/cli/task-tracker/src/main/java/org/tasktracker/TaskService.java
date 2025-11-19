@@ -44,7 +44,13 @@ public class TaskService {
     }
 
     public List<Task> listAll(TaskStatus status) {
-        return repository.findAll();
+        List<Task> tasks = repository.findAll();
+
+        if (status != null) {
+            tasks = tasks.stream().filter(task -> task.getStatus().equals(status)).toList();
+        }
+
+        return tasks;
     }
 
     private Task getTask(String id) {

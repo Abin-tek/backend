@@ -18,8 +18,8 @@ public class DeleteCommand implements Command {
         String id = args[0];
         Task task = service.deleteTask(id);
         Response.send(
-                "Task deleted successfully\n" +
-                        task.toString()
+                "Task deleted successfully" +
+                        task.prettyPrint()
         );
     }
 }

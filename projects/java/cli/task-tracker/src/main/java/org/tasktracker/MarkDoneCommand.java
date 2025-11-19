@@ -18,8 +18,8 @@ public class MarkDoneCommand implements Command {
         String id = args[0];
         Task task = service.markDone(id);
         Response.send(
-                "Task updated successfully\n" +
-                        task.toString()
+                "Task updated successfully" +
+                        task.prettyPrint()
         );
     }
 }

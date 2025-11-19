@@ -42,7 +42,7 @@ public class JsonTaskRepository implements TaskRepository {
     public void deleteById(String id) {
         List<Task> tasks = load();
 
-        boolean removed = tasks.removeIf(t -> t.getId().equals(id));
+        tasks.removeIf(t -> t.getId().equals(id));
         write(tasks);
     }
 

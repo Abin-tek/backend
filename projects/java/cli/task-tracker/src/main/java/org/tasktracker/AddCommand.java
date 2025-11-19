@@ -1,7 +1,5 @@
 package org.tasktracker;
 
-import java.util.Arrays;
-
 public class AddCommand implements Command {
     private final TaskService service;
 
@@ -17,12 +15,11 @@ public class AddCommand implements Command {
             return;
         }
 
-        System.out.println(Arrays.toString(args));
         String description = args[0];
         Task task = service.createTask(description);
         Response.send(
-                "Task added successfully\n" +
-                        task.toString()
+                "Task added successfully" +
+                        task.prettyPrint()
         );
     }
 }

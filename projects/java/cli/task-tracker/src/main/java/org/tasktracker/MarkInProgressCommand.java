@@ -18,8 +18,8 @@ public class MarkInProgressCommand implements Command {
         String id = args[0];
         Task task = service.markInProgress(id);
         Response.send(
-                "Task updated successfully\n" +
-                        task.toString()
+                "Task updated successfully" +
+                        task.prettyPrint()
         );
     }
 }

@@ -21,8 +21,8 @@ public class UpdateCommand implements Command {
 
         Task task = service.updateTask(id, description);
         Response.send(
-                "Task updated successfully\n" +
-                        task.toString()
+                "Task updated successfully" +
+                        task.prettyPrint()
         );
     }
 }

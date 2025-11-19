@@ -1,8 +1,5 @@
 package org.tasktracker;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class CommandFactory {
     private final TaskService service;
 
@@ -17,7 +14,9 @@ public class CommandFactory {
             case "delete" -> new DeleteCommand(service);
             case "mark-in-progress" -> new MarkInProgressCommand(service);
             case "mark-done" -> new MarkDoneCommand(service);
-//            add others...
+            case "list" -> new ListCommand(service);
+            case "help" -> new HelpCommand();
+//            add other commands...
             default -> throw new CommandNotExistException();
         };
     }

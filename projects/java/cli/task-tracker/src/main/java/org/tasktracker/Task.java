@@ -2,7 +2,6 @@ package org.tasktracker;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 
 public class Task {
     private final String id;
@@ -10,6 +9,7 @@ public class Task {
     private TaskStatus status;
     private final String created_at;
     private String updated_at;
+
 
     public Task() {
         this.id = "";
@@ -28,6 +28,7 @@ public class Task {
         return id;
     }
 
+    @SuppressWarnings("unused")
     public String getDescription() {
         return description;
     }
@@ -36,14 +37,15 @@ public class Task {
         return status;
     }
 
+    @SuppressWarnings("unused")
     public String getCreated_at() {
         return created_at;
     }
 
+    @SuppressWarnings("unused")
     public String getUpdated_at() {
         return updated_at;
     }
-
 
     public void markInProgress() {
         this.status = TaskStatus.IN_PROGRESS;
@@ -65,18 +67,28 @@ public class Task {
     }
 
     private static String LocalDateTimeString() {
-//        DateTimeFormatter formatter = new DateTimeFormatter()
-        return LocalDateTime.now().toString();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE, yyyy-MM-dd HH:mm:ss");
+        return LocalDateTime.now().format(formatter);
     }
+
 
     @Override
     public String toString() {
-        return "Task details\n" +
-                "Id: " + id + "\n" +
-                "Description: " + description + "\n" +
-                "Status: " + status + "\n" +
-                "Created_at: " + created_at + "\n" +
-                "Updated_at: " + updated_at
+        return "\nTask{" +
+                "id='" + id + '\'' +
+                ", description='" + description + '\'' +
+                ", status=" + status +
+                "}\n"
+                ;
+    }
+
+    public String prettyPrint() {
+        return "\nTask details\n" +
+                " Id: " + id + "\n" +
+                " Description: " + description + "\n" +
+                " Status: " + status + "\n" +
+                " Created_at: " + created_at + "\n" +
+                " Updated_at: " + updated_at + "\n"
                 ;
     }
 }

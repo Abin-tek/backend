@@ -4,11 +4,11 @@ import java.util.List;
 import java.util.Optional;
 
 public interface TaskRepository {
-    public List<Task> findAll();
+    List<Task> findAll();
 
-    public Optional<Task> findById(String id);
+    Optional<Task> findById(String id);
 
-    public void save(Task task);
+    void save(Task task);
 
-    public void deleteById(String id);
+    void deleteById(String id);
 }
