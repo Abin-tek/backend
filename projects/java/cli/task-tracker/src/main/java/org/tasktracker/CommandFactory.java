@@ -15,6 +15,8 @@ public class CommandFactory {
             case "add" -> new AddCommand(service);
             case "update" -> new UpdateCommand(service);
             case "delete" -> new DeleteCommand(service);
+            case "mark-in-progress" -> new MarkInProgressCommand(service);
+            case "mark-done" -> new MarkDoneCommand(service);
 //            add others...
             default -> throw new CommandNotExistException();
         };

@@ -1,6 +1,8 @@
 package org.tasktracker;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 
 public class Task {
     private final String id;
@@ -18,7 +20,7 @@ public class Task {
         this.id = id;
         this.description = description;
         this.status = TaskStatus.TODO;
-        this.created_at = LocalDateTime.now().toString();
+        this.created_at = LocalDateTimeString();
         this.updated_at = created_at;
     }
 
@@ -46,7 +48,6 @@ public class Task {
     public void markInProgress() {
         this.status = TaskStatus.IN_PROGRESS;
         update();
-        Response.send("Task already done");
     }
 
     public void markDone() {
@@ -60,6 +61,22 @@ public class Task {
     }
 
     private void update() {
-        this.updated_at = LocalDateTime.now().toString();
+        this.updated_at = LocalDateTimeString();
+    }
+
+    private static String LocalDateTimeString() {
+//        DateTimeFormatter formatter = new DateTimeFormatter()
+        return LocalDateTime.now().toString();
+    }
+
+    @Override
+    public String toString() {
+        return "Task details\n" +
+                "Id: " + id + "\n" +
+                "Description: " + description + "\n" +
+                "Status: " + status + "\n" +
+                "Created_at: " + created_at + "\n" +
+                "Updated_at: " + updated_at
+                ;
     }
 }

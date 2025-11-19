@@ -11,7 +11,7 @@ public class AddCommand implements Command {
 
     @Override
     public void execute(String[] args) {
-        if (args.length == 0) {
+        if (args.length != 1) {
             Response.send("Description is required.");
             Helper.showCommandFormat();
             return;
@@ -22,7 +22,7 @@ public class AddCommand implements Command {
         Task task = service.createTask(description);
         Response.send(
                 "Task added successfully\n" +
-                        "Id: " + task.getId()
+                        task.toString()
         );
     }
 }

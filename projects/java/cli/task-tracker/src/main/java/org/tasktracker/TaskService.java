@@ -10,13 +10,9 @@ public class TaskService {
     }
 
     public Task createTask(String description) {
-        try {
-            Task newTask = new Task(generateNumericId(), description);
-            repository.save(newTask);
-            return newTask;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        Task newTask = new Task(generateNumericId(), description);
+        repository.save(newTask);
+        return newTask;
     }
 
     public Task updateTask(String id, String description) {
@@ -32,15 +28,19 @@ public class TaskService {
         return task;
     }
 
-    public void markInProgress(String id) {
+    public Task markInProgress(String id) {
         Task task = getTask(id);
         task.markInProgress();
+        repository.save(task);
+        return task;
     }
 
 
-    public void markDone(String id) {
+    public Task markDone(String id) {
         Task task = getTask(id);
-        task.markInProgress();
+        task.markDone();
+        repository.save(task);
+        return task;
     }
 
     public List<Task> listAll(TaskStatus status) {

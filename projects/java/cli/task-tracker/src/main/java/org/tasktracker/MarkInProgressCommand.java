@@ -1,24 +1,24 @@
 package org.tasktracker;
 
-public class DeleteCommand implements Command {
+public class MarkInProgressCommand implements Command {
     private final TaskService service;
 
-    public DeleteCommand(TaskService service) {
+    public MarkInProgressCommand(TaskService service) {
         this.service = service;
     }
 
     @Override
     public void execute(String[] args) {
         if (args.length != 1) {
-            System.out.println("Task id is required.");
+            System.out.println("Task id is required");
             Helper.showCommandFormat();
             return;
         }
 
         String id = args[0];
-        Task task = service.deleteTask(id);
+        Task task = service.markInProgress(id);
         Response.send(
-                "Task deleted successfully\n" +
+                "Task updated successfully\n" +
                         task.toString()
         );
     }
