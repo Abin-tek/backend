@@ -4,33 +4,22 @@ import java.util.List;
 
 public class ListCommand implements Command {
     private final TaskService service;
+    private final Status callback;
 
     public ListCommand(TaskService service) {
         this.service = service;
+        this.callback = service::parseStatus;
     }
 
     @Override
     public void execute(String[] args) {
         if (args.length > 1) {
-            System.out.println("No arguments required");
+            System.out.println("More than one argument not allowed");
             Helper.showCommandFormat();
             return;
         }
 
-        TaskStatus status = getStatus(args);
-        List<Task> tasks = service.listAll(status);
+        List<Task> tasks = service.listAll(callback.parseStatus(args));
         Response.send(tasks);
-    }
-
-    private TaskStatus getStatus(String[] args) {
-        if (args.length == 0)
-            return null;
-
-        return switch (args[0]) {
-            case "todo" -> TaskStatus.TODO;
-            case "in-progress" -> TaskStatus.IN_PROGRESS;
-            case "done" -> TaskStatus.DONE;
-            default -> throw new IllegalStateException("Unexpected value: " + args[0]);
-        };
     }
 }

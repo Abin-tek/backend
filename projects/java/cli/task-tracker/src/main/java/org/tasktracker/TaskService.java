@@ -5,8 +5,8 @@ import java.util.List;
 public class TaskService {
     private final TaskRepository repository;
 
-    public TaskService(TaskRepository repository) {
-        this.repository = repository;
+    public TaskService() {
+        this.repository = new JsonTaskRepository("tasks.json");
     }
 
     public Task createTask(String description) {
@@ -28,17 +28,9 @@ public class TaskService {
         return task;
     }
 
-    public Task markInProgress(String id) {
+    public Task mark(String id, TaskStatus status) {
         Task task = getTask(id);
-        task.markInProgress();
-        repository.save(task);
-        return task;
-    }
-
-
-    public Task markDone(String id) {
-        Task task = getTask(id);
-        task.markDone();
+        task.mark(status);
         repository.save(task);
         return task;
     }
@@ -68,5 +60,17 @@ public class TaskService {
                         .max()
                         .orElse(0) + 1
         );
+    }
+
+    protected TaskStatus parseStatus(String[] args) {
+        if (args.length == 0)
+            return null;
+
+        return switch (args[0]) {
+            case "todo" -> TaskStatus.TODO;
+            case "in-progress" -> TaskStatus.IN_PROGRESS;
+            case "done" -> TaskStatus.DONE;
+            default -> throw new IllegalStateException("Unexpected value: " + args[0]);
+        };
     }
 }

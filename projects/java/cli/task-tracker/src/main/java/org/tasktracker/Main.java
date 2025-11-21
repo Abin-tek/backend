@@ -12,10 +12,7 @@ public class Main {
 
         String commandName = args[0];
         String[] options = Arrays.copyOfRange(args, 1, args.length);
-
-        TaskRepository repository = new JsonTaskRepository("tasks.json");
-        TaskService service = new TaskService(repository);
-        CommandFactory factory = new CommandFactory(service);
+        CommandFactory factory = new CommandFactory();
 
         try {
             Command command = factory.getCommand(commandName);

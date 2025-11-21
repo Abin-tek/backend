@@ -10,7 +10,7 @@ public class Task {
     private final String created_at;
     private String updated_at;
 
-
+    @SuppressWarnings("used by jackson")
     public Task() {
         this.id = "";
         this.created_at = "";
@@ -28,8 +28,8 @@ public class Task {
         return id;
     }
 
-    @SuppressWarnings("unused")
-    public String getDescription() {
+    @SuppressWarnings("used by jackson")
+    public String  getDescription() {
         return description;
     }
 
@@ -37,23 +37,18 @@ public class Task {
         return status;
     }
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings("used by jackson")
     public String getCreated_at() {
         return created_at;
     }
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings("used by jackson")
     public String getUpdated_at() {
         return updated_at;
     }
 
-    public void markInProgress() {
-        this.status = TaskStatus.IN_PROGRESS;
-        update();
-    }
-
-    public void markDone() {
-        this.status = TaskStatus.DONE;
+    public void mark(TaskStatus status) {
+        this.status = status;
         update();
     }
 

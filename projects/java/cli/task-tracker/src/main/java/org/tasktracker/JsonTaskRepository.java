@@ -41,7 +41,6 @@ public class JsonTaskRepository implements TaskRepository {
     @Override
     public void deleteById(String id) {
         List<Task> tasks = load();
-
         tasks.removeIf(t -> t.getId().equals(id));
         write(tasks);
     }

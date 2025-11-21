@@ -3,8 +3,8 @@ package org.tasktracker;
 public class CommandFactory {
     private final TaskService service;
 
-    public CommandFactory(TaskService service) {
-        this.service = service;
+    public CommandFactory() {
+        this.service = new TaskService();
     }
 
     public Command getCommand(String name) throws CommandNotExistException {
@@ -12,8 +12,7 @@ public class CommandFactory {
             case "add" -> new AddCommand(service);
             case "update" -> new UpdateCommand(service);
             case "delete" -> new DeleteCommand(service);
-            case "mark-in-progress" -> new MarkInProgressCommand(service);
-            case "mark-done" -> new MarkDoneCommand(service);
+            case "mark" -> new MarkCommand(service);
             case "list" -> new ListCommand(service);
             case "help" -> new HelpCommand();
 //            add other commands...
