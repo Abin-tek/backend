@@ -6,7 +6,7 @@ public class TaskService {
     private final TaskRepository repository;
 
     public TaskService() {
-        this.repository = new JsonTaskRepository("tasks.json");
+        this.repository = new JsonTaskRepository();
     }
 
     public Task createTask(String description) {

@@ -5,16 +5,19 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class JsonTaskRepository implements TaskRepository {
-    private final String FILE_PATH;
+    private final Path DB_PATH;
     private final ObjectMapper mapper;
 
-    public JsonTaskRepository(String FILE_PATH) {
-        this.FILE_PATH = FILE_PATH;
+    public JsonTaskRepository() {
+        this.DB_PATH = Paths.get(System.getProperty("user.home"), "tasks.json");
         this.mapper = new ObjectMapper();
     }
 
@@ -47,9 +50,8 @@ public class JsonTaskRepository implements TaskRepository {
 
     private List<Task> load() {
         try {
-            File file = new File(FILE_PATH);
-            if (!file.exists()) return new ArrayList<>();
-            return mapper.readValue(file, new TypeReference<>() {
+            if (!Files.exists(DB_PATH)) return new ArrayList<>();
+            return mapper.readValue(DB_PATH.toFile(), new TypeReference<>() {
             });
         } catch (IOException e) {
             throw new RuntimeException("Error reading file", e);
@@ -58,7 +60,7 @@ public class JsonTaskRepository implements TaskRepository {
 
     private void write(List<Task> tasks) {
         try {
-            mapper.writerWithDefaultPrettyPrinter().writeValue(new File(FILE_PATH), tasks);
+            mapper.writerWithDefaultPrettyPrinter().writeValue(DB_PATH.toFile(), tasks);
         } catch (IOException e) {
             throw new RuntimeException("Error writing file", e);
         }

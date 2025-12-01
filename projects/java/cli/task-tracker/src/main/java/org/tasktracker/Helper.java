@@ -5,7 +5,7 @@ public class Helper {
         System.out.println(
                 """
                             The command format should be : task-cli <command> [options]
-                            to know available commands, just type : task-cli help
+                            to know available commands, just type : task-cli --help
                         """
         );
     }
